@@ -1,7 +1,6 @@
-
-import React from 'react';
-import Logo from '../../imagens/logo_caixa.png';
+import React, { useEffect, useState } from 'react';
 import { Navbar, NavItem } from 'react-materialize';
+import Logo from '../../imagens/logo_caixa.png';
 
 const logoStyle = {
     paddingTop: "15px",
@@ -16,7 +15,47 @@ const fixedTop = {
     color: "white",
 }
 
-const Header = () => (
+const Header = () => {
+    const [mReady, setMReady] = useState(false);
+    
+    useEffect(() => {
+        const checkM = () => {
+            if (typeof window !== 'undefined' && typeof window.M !== 'undefined') {
+                setMReady(true);
+                return true;
+            }
+            return false;
+        };
+        
+        if (checkM()) {
+            return;
+        }
+        
+        const checkInterval = setInterval(() => {
+            if (checkM()) {
+                clearInterval(checkInterval);
+            }
+        }, 50);
+        
+        setTimeout(() => {
+            clearInterval(checkInterval);
+            if (!mReady) {
+                setMReady(true);
+            }
+        }, 5000);
+        
+        return () => clearInterval(checkInterval);
+    }, [mReady]);
+    
+    if (!mReady) {
+        return (
+            <div style={fixedTop}>
+                <div className="blue accent-3" style={{ height: '64px' }}></div>
+            </div>
+        );
+    }
+    
+    return (
     <div style={fixedTop}>
         <Navbar
             alignLinks="right"
@@ -38,7 +77,7 @@ const Header = () => (
             <NavItem href="/contact">Contato</NavItem>
             </Navbar>
         </div>
-
-);
+    );
+};
 
 export default Header;

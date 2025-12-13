@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Card, Button, Icon } from 'react-materialize';
 import { Doughnut, HorizontalBar } from 'react-chartjs-2';
 import DataTable from 'react-data-table-component';
+import { Button, Card, Icon } from 'react-materialize';
 
 class Painel extends Component{
     constructor(props){
@@ -76,10 +76,10 @@ class Painel extends Component{
         return(
             <Card
             actions={[
-                <Button waves="light" key="1" className="light-blue accent-4" onClick={ this.changeVisual('g') }>Gráfico<Icon right>show_chart</Icon></Button>,
-                <Button waves="light" key="2" className="orange accent-3" onClick={ this.changeVisual('t') }>Tabela<Icon right>toc</Icon></Button>,
-                <p className="right">Fonte: { fonte }</p>
-                ]}
+                <Button waves="light" key="1" className="light-blue accent-4" onClick={ () => this.changeVisual('g') }>Gráfico<Icon right>show_chart</Icon></Button>,
+                <Button waves="light" key="2" className="orange accent-3" onClick={ () => this.changeVisual('t') }>Tabela<Icon right>toc</Icon></Button>,
+                <p key="3" className="right">Fonte: { fonte }</p>
+            ]}
             className="white"
             textClassName="indigo-text darken-3-text strong"
             title={ titulo }
